@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Dynamic Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <h1>NETFLIX</h1>
+        <input type="text" id="search" placeholder="Search Movies...">
+    </nav>
+
+    <header class="hero">
+        <h2>Unlimited Movies, TV Shows & More</h2>
+        <p>Watch anywhere. Cancel anytime.</p>
+        <button>Get Started</button>
+    </header>
+
+    <section>
+        <h2 class="section-title">Popular Movies</h2>
+        <div id="movie-container" class="movie-container"></div>
+    </section>
+
+    <!-- Popup -->
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <h2 id="popup-title"></h2>
+            <p>Movie description will appear here.</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
