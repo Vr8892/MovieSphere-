@@ -6,69 +6,91 @@
 }
 
 body{
-    background:black;
-    color:white;
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 nav{
-    display:flex;
-    justify-content:space-between;
-    padding:20px 40px;
-    position:fixed;
-    width:100%;
-    z-index:100;
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 nav h1{
-    color:red;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #e50914;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 nav input{
-    padding:10px;
-    border:none;
-    border-radius:5px;
+    padding: 10px;
+    border: 1px solid #e50914;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+nav input:focus{
+    border-color: #f40612;
+    outline: none;
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.8);
 }
 
 .hero{
-    height:100vh;
-    background:url("https://wallpaperaccess.com/full/2703652.png");
-    background-size:cover;
-    background-position:center;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    animation:fadeIn 2s ease;
+    height: 100vh;
+    background: linear-gradient(270deg, #e50914, #141e30, #203a43);
+    background-size: 600% 600%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+    animation: gradientShift 10s ease infinite;
+}
+
+.hero h2{
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+.hero p{
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .hero button{
-    margin-top:20px;
-    padding:12px 20px;
-    background:red;
-    color:white;
-    border:none;
-    cursor:pointer;
-    transition:0.3s;
+    padding: 15px 35px;
+    background: linear-gradient(to right, #e50914, #f40612);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .hero button:hover{
-    transform:scale(1.1);
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(-30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.section-title{
-    padding:20px;
+    transform: scale(1.15);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
 
 .movie-container{
@@ -80,22 +102,30 @@ nav input{
 }
 
 .movie-card{
-    width:200px;
-    background:#111;
-    padding:10px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:0.4s;
+    background: #1c1c1c;
+    border: 2px solid;
+    border-image: linear-gradient(to right, #e50914, #f40612);
+    border-image-slice: 1;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
 }
 
 .movie-card:hover{
-    transform:scale(1.1);
-    box-shadow:0 10px 20px rgba(255,0,0,0.6);
+    transform: scale(1.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
 }
 
-.movie-card img{
-    width:100%;
-    border-radius:10px;
+.movie-card h3{
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .popup{
@@ -118,4 +148,28 @@ nav input{
 
 .hidden{
     display:none;
+}
+
+footer {
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 25px;
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
