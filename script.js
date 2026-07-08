@@ -1,85 +1,91 @@
-const movies = [
-    {
-        name: "Avatar",
-        image: "https://via.placeholder.com/200x300?text=Avatar",
-        description: "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home."
-    },
-    {
-        name: "Avengers",
-        image: "https://via.placeholder.com/200x300?text=Avengers",
-        description: "Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity."
-    },
-    {
-        name: "Joker",
-        image: "https://via.placeholder.com/200x300?text=Joker",
-        description: "In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime."
-    },
-    {
-        name: "Titanic",
-        image: "https://via.placeholder.com/200x300?text=Titanic",
-        description: "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic."
-    }
-];
+const API_KEY = "4b9a9e35676d60f35e055a44621936e8";
 
-const container = document.getElementById("movie-container");
-const search = document.getElementById("search");
+const IMAGE = "https://image.tmdb.org/t/p/w500";
 
-function displayMovies(movieList){
-    container.innerHTML="";
+async function loadMovies(url, containerId){
 
-    movieList.forEach(movie=>{
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    const container = document.getElementById(containerId);
+
+    data.results.forEach(movie=>{
+
         container.innerHTML += `
-            <div class="movie-card" onclick="showPopup('${movie.name}')">
-                <img src="${movie.image}">
-                <h3>${movie.name}</h3>
+
+        <div class="movie-card"
+        onclick="showMovie(${movie.id})">
+
+            <img src="${IMAGE}${movie.poster_path}">
+
+            <div class="movie-info">
+
+                <h3>${movie.title}</h3>
+
+                <p>⭐ ${movie.vote_average.toFixed(1)}</p>
+
             </div>
+
+        </div>
+
         `;
+
     });
+
 }
 
-displayMovies(movies);
+loadMovies(
+`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
+"trending");
 
-search.addEventListener("keyup",()=>{
-    const filtered = movies.filter(movie =>
-        movie.name.toLowerCase().includes(search.value.toLowerCase())
-    );
+loadMovies(
+`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`,
+"toprated");
 
-    displayMovies(filtered);
-});
+loadMovies(
+`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=35`,
+"comedy");
 
-function showPopup(movieName){
-    const movie = movies.find(m => m.name === movieName);
-    document.getElementById("popup").classList.remove("hidden");
-    document.getElementById("popup-title").innerText = movie.name;
-    document.querySelector(".popup-content p").innerText = movie.description;
+loadMovies(
+`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=27`,
+"horror");
+
+loadMovies(
+`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=28`,
+"action");
+
+// Movie Details Popup
+async function showMovie(id){
+
+const response=await fetch(
+`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`);
+
+const movie=await response.json();
+
+document.getElementById("popup").classList.remove("hidden");
+
+document.getElementById("popup-title").innerHTML=movie.title;
+
+document.querySelector(".popup-content p").innerHTML=
+
+`
+⭐ Rating : ${movie.vote_average}
+
+<br><br>
+
+📅 Release : ${movie.release_date}
+
+<br><br>
+
+${movie.overview}
+
+`;
+
 }
 
 function closePopup(){
-    document.getElementById("popup").classList.add("hidden");
+
+document.getElementById("popup").classList.add("hidden");
+
 }
-
-window.addEventListener("scroll",()=>{
-    const nav=document.querySelector("nav");
-
-    if(window.scrollY>50){
-        nav.style.background="black";
-    }else{
-        nav.style.background="transparent";
-    }
-});
-
-const heroImages = [
-    "https://wallpaperaccess.com/full/2703652.png",
-    "https://wallpaperaccess.com/full/329583.jpg",
-    "https://wallpaperaccess.com/full/1567677.jpg"
-];
-
-let index = 0;
-
-setInterval(()=>{
-    index=(index+1)%heroImages.length;
-
-    document.querySelector(".hero").style.backgroundImage=
-    `url(${heroImages[index]})`;
-
-},3000);
