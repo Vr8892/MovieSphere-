@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your MovieSphere account and start streaming unlimited movies and TV shows.">
+  <title>MovieSphere – Create Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+
+  <!-- Animated blurred background -->
+  <div class="auth-bg"></div>
+
+  <div class="auth-wrapper">
+
+    <!-- Brand -->
+    <div class="auth-brand">
+      <span class="logo-icon">🎬</span>
+      <a href="index.html" class="logo-text">Movie<span class="logo-accent">Sphere</span></a>
+    </div>
+
+    <!-- Card -->
+    <div class="auth-card">
+      <h2>Create Account 🚀</h2>
+      <p class="auth-subtitle">Join millions of movie lovers today — it's free!</p>
+
+      <form id="signupForm" novalidate>
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" id="name" placeholder="Your full name" autocomplete="name" required>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉️</span>
+            <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="Min. 8 characters" autocomplete="new-password" required>
+            <button class="pass-toggle" type="button" id="togglePass" onclick="togglePassword('password','togglePass')" aria-label="Toggle password visibility">👁️</button>
+          </div>
+        </div>
+
+        <!-- Password Strength -->
+        <div class="password-strength" id="strengthWrap" style="display:none;">
+          <div class="strength-bar" id="strengthBar"></div>
+          <span class="strength-label" id="strengthLabel"></span>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="auth-submit" id="signupBtn">Create Account →</button>
+
+        <!-- Message -->
+        <p id="message" role="alert"></p>
+
+      </form>
+    </div>
+
+    <!-- Footer link -->
+    <p class="auth-footer">
+      Already have an account? <a href="login.html">Sign In</a>
+    </p>
+
+  </div>
+
+  <script src="signup.js"></script>
+</body>
+</html>

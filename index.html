@@ -1,148 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix Dynamic Clone</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MovieSphere – Your ultimate destination for movies and TV shows. Stream thousands of blockbusters, originals, and classics.">
+  <meta name="theme-color" content="#E50914">
+  <title>MovieSphere – Unlimited Entertainment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <nav>
+  <!-- ===== NAVIGATION ===== -->
+  <nav id="navbar" role="navigation" aria-label="Main Navigation">
+    <a class="logo" href="index.html" aria-label="MovieSphere Home">
+      <span class="logo-icon" aria-hidden="true">🎬</span>
+      <span class="logo-text">Movie<span class="logo-accent">Sphere</span></span>
+    </a>
 
-    <div class="logo">
-        🎬 MovieSphere
+    <div class="nav-center">
+      <div class="search-wrapper">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="search" placeholder="Search movies…" autocomplete="off" aria-label="Search movies">
+        <button id="searchBtn" aria-label="Search">Search</button>
+      </div>
     </div>
 
     <div class="nav-right">
-
-        <input
-        type="text"
-        id="search"
-        placeholder="Search Movies">
-
-        <button class="signin-btn">
-            Sign In
-        </button>
-
+      <!-- Logged-in user profile -->
+      <div id="userProfile" class="user-profile hidden">
+        <div class="user-avatar" id="userInitial">U</div>
+        <span class="user-name" id="userName"></span>
+        <button class="logout-btn" id="logoutBtn" onclick="handleLogout()" aria-label="Sign Out">Sign Out</button>
+      </div>
+      <!-- Sign In button (shown when not logged in) -->
+      <button class="signin-btn" id="authBtn" onclick="handleLogin()" aria-label="Sign In">Sign In</button>
     </div>
+  </nav>
 
-</nav>
-    <header class="hero">
-
-    <div class="overlay"></div>
-
-    <div class="hero-content">
-
-        <h1>
-            Welcome to MovieSphere
-        </h1>
-
-        <h2>
-            Unlimited Movies, TV Shows & Entertainment
-        </h2>
-
-        <p>
-
-            Discover thousands of blockbuster movies,
-            trending TV series, award-winning originals,
-            and timeless classics—all in one place.
-            Stream anytime, anywhere.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <button class="watch-btn">
-
-                ▶ Watch Now
-
-            </button>
-
-            <button class="browse-btn">
-
-                🎬 Browse Movies
-
-            </button>
-
+  <!-- ===== HERO BANNER ===== -->
+  <header class="hero" role="banner">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" id="heroContent">
+      <span class="hero-badge" aria-hidden="true">🔥 Trending This Week</span>
+      <h1 class="hero-title">Welcome to <span class="gradient-text">MovieSphere</span></h1>
+      <p class="hero-sub">Unlimited Movies, TV Shows &amp; Entertainment</p>
+      <p class="hero-desc">
+        Discover thousands of blockbuster movies, trending TV series,
+        award-winning originals, and timeless classics — all in one place.
+        Stream anytime, anywhere.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-primary" id="watchNowBtn" onclick="scrollToMovies()" aria-label="Start watching movies">▶ Watch Now</button>
+        <button class="btn-secondary" id="browseBtn" onclick="scrollToTrending()" aria-label="Browse movie collection">🎬 Browse Movies</button>
+        <button class="btn-payment" id="payBtn" onclick="handlePayment()" aria-label="Buy or rent a movie">💳 Buy / Rent</button>
+        <button class="btn-bookmyshow" id="bmsBtn" onclick="openBookMyShow()" aria-label="Book movie tickets">🎫 BookMyShow</button>
+      </div>
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-num">20K+</span>
+          <span class="stat-label">Movies</span>
         </div>
-
-    </div>
-    <div class="stats">
-
-<div>
-
-<h2>20K+</h2>
-
-<p>Movies</p>
-
-</div>
-
-<div>
-
-<h2>5K+</h2>
-
-<p>TV Shows</p>
-
-</div>
-
-<div>
-
-<h2>100+</h2>
-
-<p>Countries</p>
-
-</div>
-
-</div>
-
-</header>
-
-    <section>
-
-    <h2 class="section-title">🔥 Trending Now</h2>
-    <div id="trending" class="movie-row"></div>
-
-    <h2 class="section-title">⭐ Top Rated</h2>
-    <div id="toprated" class="movie-row"></div>
-
-    <h2 class="section-title">😂 Comedy</h2>
-    <div id="comedy" class="movie-row"></div>
-
-    <h2 class="section-title">😱 Horror</h2>
-    <div id="horror" class="movie-row"></div>
-
-    <h2 class="section-title">💥 Action</h2>
-    <div id="action" class="movie-row"></div>
-
-</section>
-
-    <!-- Footer -->
-    <footer>
-
-    <h2>🎬 MovieSphere</h2>
-
-    <p>
-        Your ultimate destination for movies and TV entertainment.
-    </p>
-
-    <br>
-
-    <p>
-        © 2026 MovieSphere. All Rights Reserved.
-    </p>
-
-</footer>>
-
-    <!-- Popup -->
-    <div id="popup" class="popup hidden">
-        <div class="popup-content">
-            <h2 id="popup-title"></h2>
-            <p>Movie description will appear here.</p>
-            <button onclick="closePopup()">Close</button>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">5K+</span>
+          <span class="stat-label">TV Shows</span>
         </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">100+</span>
+          <span class="stat-label">Countries</span>
+        </div>
+      </div>
     </div>
+  </header>
 
-<script src="script.js"></script>
+  <!-- ===== SEARCH RESULTS ===== -->
+  <section id="searchSection" class="hidden" role="region" aria-label="Search Results" aria-live="polite">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title" id="searchTitle">🔍 Search Results</h2>
+        <button class="clear-search-btn" onclick="clearSearch()" aria-label="Clear search results">✕ Clear</button>
+      </div>
+      <div id="searchResults" class="movie-row"></div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN MOVIE SECTIONS ===== -->
+  <main id="mainContent" role="main">
+
+    <!-- Trending -->
+    <section id="section-trending" aria-labelledby="trending-title">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" id="trending-title">🔥 Trending Now</h2>
+          <button class="see-all-btn" onclick="seeAllMovies('trending','🔥 Trending Now')" aria-label="See all trending movies">See All</button>
+        </div>
+        <div id="trending" class="movie-row" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Top Rated -->
+    <section id="section-toprated" aria-labelledby="toprated-title">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" id="toprated-title">⭐ Top Rated</h2>
+          <button class="see-all-btn" onclick="seeAllMovies('toprated','⭐ Top Rated')" aria-label="See all top rated movies">See All</button>
+        </div>
+        <div id="toprated" class="movie-row" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Comedy -->
+    <section id="section-comedy" aria-labelledby="comedy-title">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" id="comedy-title">😂 Comedy</h2>
+          <button class="see-all-btn" onclick="seeAllMovies('comedy','😂 Comedy')" aria-label="See all comedy movies">See All</button>
+        </div>
+        <div id="comedy" class="movie-row" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Horror -->
+    <section id="section-horror" aria-labelledby="horror-title">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" id="horror-title">😱 Horror</h2>
+          <button class="see-all-btn" onclick="seeAllMovies('horror','😱 Horror')" aria-label="See all horror movies">See All</button>
+        </div>
+        <div id="horror" class="movie-row" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Action -->
+    <section id="section-action" aria-labelledby="action-title">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" id="action-title">💥 Action</h2>
+          <button class="see-all-btn" onclick="seeAllMovies('action','💥 Action')" aria-label="See all action movies">See All</button>
+        </div>
+        <div id="action" class="movie-row" role="list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <span class="logo-icon" aria-hidden="true">🎬</span>
+          <span class="logo-text">Movie<span class="logo-accent">Sphere</span></span>
+        </div>
+        <p class="footer-tagline">Your ultimate destination for movies &amp; TV entertainment. Stream unlimited content from anywhere in the world.</p>
+      </div>
+      <div class="footer-right">
+        <nav class="footer-links" role="navigation" aria-label="Footer Navigation">
+          <a href="#" onclick="openInfoModal('about'); return false;" aria-label="About MovieSphere">About</a>
+          <a href="#" onclick="openInfoModal('privacy'); return false;" aria-label="Privacy Policy">Privacy</a>
+          <a href="#" onclick="openInfoModal('terms'); return false;" aria-label="Terms of Service">Terms</a>
+          <a href="#" onclick="openInfoModal('contact'); return false;" aria-label="Contact Us">Contact</a>
+        </nav>
+        <p class="footer-copy">© 2026 MovieSphere. All Rights Reserved. Built with ❤️ for movie lovers.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MOVIE DETAIL POPUP ===== -->
+  <div id="popup" class="popup hidden" role="dialog" aria-modal="true" onclick="handlePopupClick(event)">
+    <div class="popup-content" id="popupContent">
+      <button class="popup-close" onclick="closePopup()" aria-label="Close movie details">✕</button>
+    </div>
+  </div>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div id="toast" class="toast hidden" role="alert" aria-live="polite"></div>
+
+  <!-- ===== INFO MODAL (About/Privacy/Terms/Contact) ===== -->
+  <div id="infoModal" class="info-modal hidden" role="dialog" aria-modal="true">
+    <div class="info-modal-content" id="infoModalContent">
+      <button class="close-info" onclick="closeInfoModal()" aria-label="Close">✕</button>
+      <h3 id="infoModalTitle"></h3>
+      <div id="infoModalBody"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
